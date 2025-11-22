@@ -56,8 +56,9 @@ pipeline {
             }
             steps{
                 sh'''
-                    # Install Playwright dependencies and browsers
-                    npx playwright install --with-deps
+                    # Playwright Docker images already come with browser dependencies preinstalled
+                    # You only need to install the browser binaries (which npx playwright install does)
+                    npx playwright install  # --with-deps
 
                     npm install serve
                     node_modules/.bin/serve -s build &
