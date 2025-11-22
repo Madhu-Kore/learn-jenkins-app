@@ -56,6 +56,9 @@ pipeline {
             }
             steps{
                 sh'''
+                    # Install Playwright dependencies and browsers
+                    npx playwright install --with-deps
+
                     npm install serve
                     node_modules/.bin/serve -s build &
                     sleep 10
