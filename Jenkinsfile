@@ -48,6 +48,9 @@ pipeline {
             agent {
                 docker {
                     image 'mcr.microsoft.com/playwright:v1.56.1-noble'
+                    args '-u root'
+                    // Run container as root so NPM install/ci never fails
+                    // This prevents permission problems inside local Jenkins
                     reuseNode true
                 }
             }
