@@ -85,7 +85,25 @@ pipeline {
 
             }
         }
-        
+
+        stage('Deploy') {
+        // Run this stage inside a Docker container
+            agent {
+                docker {
+                    image 'node:25-alpine'
+                    // Run container as root so NPM install never fails
+                    // This prevents permission problems inside local Jenkins
+                    args '-u root'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh'''
+                    npm install netlify-cli
+                    node_modules/.bin/netlify --version
+                '''  
+            }
+}
     }
 
 
